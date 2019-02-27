@@ -1,0 +1,23 @@
+<?php
+
+namespace $CLASS_NAMESPACE$;
+
+use Illuminate\Routing\Controller;
+use Module;
+use Modules\Core\Supports\Response;
+
+class $CLASS$ extends Controller
+{
+    /**
+     * Display info of the module.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $name = Module::find('$LOWER_NAME$')->name;
+        $requirements = Module::findRequirements('$LOWER_NAME$');
+
+        return Response::success(compact('name', 'requirements'));
+    }
+}

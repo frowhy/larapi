@@ -40,8 +40,8 @@ class Response implements Responsable, Arrayable, Renderable, Boolable
     {
         list($response, $status_code) = [$this->response, $this->statusCode];
         $formatter = Formatter::make($response, Formatter::ARR);
-        $format = self::param('output_format') ?? (config('api.output_format'));
-        $status_code = (self::param('status_sync') ?? config('api.status_sync')) ? $status_code : 200;
+        $format = self::param('output_format') ?? (config('core.api.output_format'));
+        $status_code = (self::param('status_sync') ?? config('core.api.status_sync')) ? $status_code : 200;
         if (in_array($format, ['application/xml', 'xml'])) {
             $response = response($formatter->toXml(), $status_code, ['Content-Type' => 'application/xml']);
         } else if (in_array($format, ['application/x-yaml', 'yaml'])) {
@@ -58,7 +58,7 @@ class Response implements Responsable, Arrayable, Renderable, Boolable
 
     private function cors(\Illuminate\Http\Response $response)
     {
-        if (config('api.cors_enabled')) {
+        if (config('core.api.cors_enabled')) {
             /** @var CorsService $cors */
             $cors = app(CorsService::class);
             $request = request();

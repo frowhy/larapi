@@ -2,18 +2,21 @@
 
 namespace Modules\Core\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Core\Supports\Response;
 
 class CoreController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @return Response
+     *
+     * @return \Modules\Core\Supports\Response
      */
     public function index()
     {
-        return view('core::index');
+        $name = \Module::find('core')->name;
+        $requirements = \Module::findRequirements('core');
+
+        return Response::success(compact('name', 'requirements'));
     }
 }

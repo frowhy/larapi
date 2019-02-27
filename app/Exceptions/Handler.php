@@ -60,7 +60,7 @@ class Handler extends ExceptionHandler
     public function render($request, \Exception $exception)
     {
         if ($request->is('api/*') || $request->wantsJson()) {
-            if ('web' !== config('api.error_format')) {
+            if ('web' !== config('core.api.error_format')) {
                 if (!$exception instanceof UnauthorizedHttpException && method_exists($exception, 'getStatusCode')) {
                     $response['meta'][self::STATUS_CODE] = $exception->getStatusCode();
                     if ($exception->getMessage()) {
