@@ -12,7 +12,7 @@
 - Memcached 1.4+
 - Laravel  5.7+
 
-## 扩展包使用情况
+## 扩展包
 
 | 扩展包 | 一句话描述 | 本项目应用场景 |
 | --- | --- | --- |
@@ -27,12 +27,12 @@
 | [soapbox/laravel-formatter](https://github.com/soapbox/laravel-formatter) | 输出格式化 | 统一接口输出 |
 | [doctrine/dbal](https://github.com/doctrine/dbal) | 数据库抽象层 | 映射数据库模型 |
 
-## 自定义 Artisan 命令
+## Artisan 命令
 
 | 命令行名字 | 说明 | Cron | 代码调用 |
 | --- | --- | --- | --- |
 
-## 自定义 config 文件
+## 配置文件
 
 | 文件名字 | 说明 |
 | --- | --- |
@@ -44,7 +44,7 @@
 | 名称 | 说明 | 调用时机 |
 | --- | --- | --- |
 
-## 模块清单
+## 依赖清单
 
 | 名称 | 说明 |
 | --- | --- |

@@ -36,6 +36,8 @@ return [
             //            'assets/sass/app' => 'Resources/assets/sass/app.scss',
             //            'webpack' => 'webpack.mix.js',
             //            'package' => 'package.json',
+            '.gitignore' => '.gitignore',
+            'readme' => 'readme.md',
         ],
         'replacements' => [
             'routes/web' => ['LOWER_NAME', 'STUDLY_NAME'],
@@ -52,6 +54,10 @@ return [
                 'AUTHOR_NAME',
                 'AUTHOR_EMAIL',
                 'MODULE_NAMESPACE',
+            ],
+            'readme' => [
+                'LOWER_NAME',
+                'STUDLY_NAME',
             ],
         ],
         'gitkeep' => true,
