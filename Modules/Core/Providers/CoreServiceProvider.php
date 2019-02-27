@@ -4,6 +4,7 @@ namespace Modules\Core\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Module;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -21,7 +22,6 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->autoload();
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
@@ -110,12 +110,5 @@ class CoreServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
-    }
-
-    private function autoload()
-    {
-        if (file_exists(__DIR__.'/../vendor/autoload.php')) {
-            require __DIR__.'/../vendor/autoload.php';
-        }
     }
 }

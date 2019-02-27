@@ -9,6 +9,8 @@
         "Modules\\Core\\Providers\\CoreServiceProvider"
     ],
     "aliases": {},
-    "files": [],
+    "files": [
+        "helpers.php"
+    ],
     "requires": []
 }
