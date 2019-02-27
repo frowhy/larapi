@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,3 +12,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/$LOWER_NAME$', '$STUDLY_NAME$Controller@index');
+
+Route::group(['prefix' => 'v1', 'namespace' => 'Api\V1'], function () {
+    //
+});
