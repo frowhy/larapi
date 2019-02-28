@@ -1,0 +1,12 @@
+<?php
+
+namespace $NAMESPACE$;
+
+
+use Modules\Core\Traits\RepositoryStructureTrait;
+use Prettus\Repository\Eloquent\BaseRepository;
+
+class $CLASS$Eloquent extends BaseRepository implements $CLASS$
+{
+    use RepositoryStructureTrait;
+}

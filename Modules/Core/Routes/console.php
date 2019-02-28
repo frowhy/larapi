@@ -11,6 +11,12 @@
 |
 */
 
+use Modules\Core\Console\{
+    ResourceMakeCommand,
+    RepositoryMakeCommand
+};
+
 return [
-    \Modules\Core\Console\ResourceMakeCommand::class,
+    ResourceMakeCommand::class,
+    RepositoryMakeCommand::class,
 ];
