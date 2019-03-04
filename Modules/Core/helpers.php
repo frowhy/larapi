@@ -8,16 +8,10 @@
 
 
 /**
- * 验证码
+ * 生成验证码
  */
 if (!function_exists('verification_code')) {
-    /**
-     * @param int $length
-     * @param string $type
-     *
-     * @return string
-     */
-    function verification_code(int $length = 4, string $type = 'int')
+    function verification_code(int $length = 4, string $type = 'int'): string
     {
         if ('int' === $type) {
             return sprintf("%0{$length}d", rand(0, pow(10, $length) - 1));
@@ -31,12 +25,7 @@ if (!function_exists('verification_code')) {
  * 相对 URL
  */
 if (!function_exists('secure')) {
-    /**
-     * @param null|string $url
-     *
-     * @return null|string
-     */
-    function relative_url(?string $url = null)
+    function relative_url(?string $url = null): ?string
     {
         return $url === null
             ? $url
@@ -49,7 +38,7 @@ if (!function_exists('secure')) {
  * 储存 URL
  */
 if (!function_exists('storage_url')) {
-    function storage_url(?string $url = null)
+    function storage_url(?string $url = null): ?string
     {
         return $url === null ? $url : (starts_with($url, 'http') ? $url : \Storage::url($url));
     }
@@ -59,7 +48,7 @@ if (!function_exists('storage_url')) {
  * 两位小数
  */
 if (!function_exists('price')) {
-    function price(float $price)
+    function price(float $price): string
     {
         return number_format($price, 2);
     }
@@ -69,7 +58,7 @@ if (!function_exists('price')) {
  * 16 进制转 RGB
  */
 if (!function_exists('hex2rgb')) {
-    function hex2rgb(string $hexColor)
+    function hex2rgb(string $hexColor): array
     {
         $color = str_replace('#', '', $hexColor);
         if (strlen($color) > 3) {
@@ -98,17 +87,17 @@ if (!function_exists('hex2rgb')) {
  * 灰度等级
  */
 if (!function_exists('gray_level')) {
-    function gray_level(array $rgb)
+    function gray_level(array $rgb): float
     {
         return $rgb['r'] * 0.299 + $rgb['g'] * 0.587 + $rgb['b'] * 0.114;
     }
 }
 
 /**
- * 时间范围
+ * 去年时间范围
  */
 if (!function_exists('last_year')) {
-    function last_year()
+    function last_year(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->today()->subYear()->startOfYear();
@@ -118,8 +107,11 @@ if (!function_exists('last_year')) {
     }
 }
 
+/**
+ * 今年时间范围
+ */
 if (!function_exists('this_year')) {
-    function this_year()
+    function this_year(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->today()->startOfYear();
@@ -129,8 +121,11 @@ if (!function_exists('this_year')) {
     }
 }
 
+/**
+ * 明年时间范围
+ */
 if (!function_exists('next_year')) {
-    function next_year()
+    function next_year(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->today()->addYear()->startOfYear();
@@ -140,8 +135,11 @@ if (!function_exists('next_year')) {
     }
 }
 
+/**
+ * 上个月时间范围
+ */
 if (!function_exists('last_month')) {
-    function last_month()
+    function last_month(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->today()->subMonth()->startOfMonth();
@@ -151,8 +149,11 @@ if (!function_exists('last_month')) {
     }
 }
 
+/**
+ * 本月时间范围
+ */
 if (!function_exists('this_month')) {
-    function this_month()
+    function this_month(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->today()->startOfMonth();
@@ -162,8 +163,11 @@ if (!function_exists('this_month')) {
     }
 }
 
+/**
+ * 下个月时间范围
+ */
 if (!function_exists('next_month')) {
-    function next_month()
+    function next_month(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->today()->addMonth()->startOfMonth();
@@ -173,8 +177,11 @@ if (!function_exists('next_month')) {
     }
 }
 
+/**
+ * 上周时间范围
+ */
 if (!function_exists('last_week')) {
-    function last_week()
+    function last_week(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->today()->subWeek()->startOfWeek();
@@ -184,8 +191,11 @@ if (!function_exists('last_week')) {
     }
 }
 
+/**
+ * 本周时间范围
+ */
 if (!function_exists('this_week')) {
-    function this_week()
+    function this_week(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->today()->startOfWeek();
@@ -195,8 +205,11 @@ if (!function_exists('this_week')) {
     }
 }
 
+/**
+ * 下周时间范围
+ */
 if (!function_exists('next_week')) {
-    function next_week()
+    function next_week(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->today()->addWeek()->startOfWeek();
@@ -206,8 +219,11 @@ if (!function_exists('next_week')) {
     }
 }
 
+/**
+ * 昨天时间范围
+ */
 if (!function_exists('yesterday')) {
-    function yesterday()
+    function yesterday(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->yesterday()->startOfDay();
@@ -217,8 +233,11 @@ if (!function_exists('yesterday')) {
     }
 }
 
+/**
+ * 今天时间范围
+ */
 if (!function_exists('today')) {
-    function today()
+    function today(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->today()->startOfDay();
@@ -228,8 +247,11 @@ if (!function_exists('today')) {
     }
 }
 
+/**
+ * 明天时间范围
+ */
 if (!function_exists('tomorrow')) {
-    function tomorrow()
+    function tomorrow(): array
     {
         $carbon = new Illuminate\Support\Carbon();
         $start_at = $carbon->tomorrow()->startOfDay();
@@ -243,7 +265,7 @@ if (!function_exists('tomorrow')) {
  * 微信浏览器
  */
 if (!function_exists('in_wechat')) {
-    function in_wechat()
+    function in_wechat(): bool
     {
         return str_contains(request(), 'MicroMessenger');
     }
@@ -253,7 +275,7 @@ if (!function_exists('in_wechat')) {
  * 微信
  */
 if (!function_exists('is_wechat')) {
-    function is_wechat()
+    function is_wechat(): bool
     {
         return in_wechat() && !is_mini_program();
     }
@@ -263,7 +285,7 @@ if (!function_exists('is_wechat')) {
  * 小程序
  */
 if (!function_exists('is_mini_program')) {
-    function is_mini_program()
+    function is_mini_program(): bool
     {
         return in_wechat() && request()->get('is_mini_program', false);
     }
@@ -313,7 +335,7 @@ if (!function_exists('get_data')) {
  * 清空缓存
  */
 if (!function_exists('clear_cache')) {
-    function clear_cache()
+    function clear_cache(): void
     {
         if (config('cache.opcache_enabled')) {
             $opcache = app('Appstract\Opcache\OpcacheFacade');
@@ -329,7 +351,7 @@ if (!function_exists('clear_cache')) {
  * 判定缓存
  */
 if (!function_exists('has_cache')) {
-    function has_cache(string $uri)
+    function has_cache(string $uri): bool
     {
         return \Cache::tags('website')->has($uri);
     }
@@ -349,7 +371,7 @@ if (!function_exists('get_cache')) {
  * 写缓存
  */
 if (!function_exists('set_cache')) {
-    function set_cache(string $uri, string $response)
+    function set_cache(string $uri, string $response): void
     {
         \Cache::tags('website')->put($uri, $response, config('cache.timeout'));
     }
@@ -359,7 +381,7 @@ if (!function_exists('set_cache')) {
  * 随机值
  */
 if (!function_exists('random')) {
-    function random(int $length = 4, string $type = 'digital')
+    function random(int $length = 4, string $type = 'digital'): string
     {
         if ('digital' === $type) {
             return randomDigital($length);
@@ -371,15 +393,21 @@ if (!function_exists('random')) {
     }
 }
 
+/**
+ * 随机数字
+ */
 if (!function_exists('randomDigital')) {
-    function randomDigital(int $length = 4)
+    function randomDigital(int $length = 4): string
     {
         return sprintf("%0{$length}d", rand(0, pow(10, $length) - 1));
     }
 }
 
+/**
+ * 随机字母
+ */
 if (!function_exists('randomAlphabet')) {
-    function randomAlphabet(int $length = 4)
+    function randomAlphabet(int $length = 4): string
     {
         $str = '';
         $map = [
@@ -394,22 +422,31 @@ if (!function_exists('randomAlphabet')) {
     }
 }
 
+/**
+ * 随机大写字母
+ */
 if (!function_exists('randomAlphabetUpper')) {
-    function randomAlphabetUpper(int $length = 4)
+    function randomAlphabetUpper(int $length = 4): string
     {
         return strtoupper(randomAlphabet($length));
     }
 }
 
+/**
+ * 随机小写字母
+ */
 if (!function_exists('randomAlphabetLower')) {
-    function randomAlphabetLower(int $length = 4)
+    function randomAlphabetLower(int $length = 4): string
     {
         return strtolower(randomAlphabet($length));
     }
 }
 
+/**
+ * 随机日期
+ */
 if (!function_exists('randomDate')) {
-    function randomDate()
+    function randomDate(): string
     {
         return mt_rand(2000, date('Y')).sprintf("%02d", mt_rand(1, 12)).sprintf("%02d", mt_rand(1, 28));
     }
@@ -417,12 +454,9 @@ if (!function_exists('randomDate')) {
 
 /**
  * 轮询调度
- *
- * @param $items
- * @param $result
  */
 if (!function_exists('round_robin')) {
-    function round_robin(&$items, &$result)
+    function round_robin(array &$items, array &$result): void
     {
         $total = 0;
         $best = null;
@@ -453,16 +487,20 @@ if (!function_exists('round_robin')) {
  * @return float
  */
 if (!function_exists('getMillisecond')) {
-    function getMillisecond()
+    function getMillisecond(): float
     {
         list($t1, $t2) = explode(' ', microtime());
         return (float) sprintf('%.0f', (floatval($t1) + floatval($t2)) * 1000);
     }
 }
 
-// ASCII
+/**
+ * Ascii Code Encode
+ *
+ * @return float
+ */
 if (!function_exists('asciiEncode')) {
-    function asciiEncode($string)
+    function asciiEncode(string $string): ?string
     {
         $length = strlen($string);
         $a = 0;
@@ -509,5 +547,15 @@ if (!function_exists('asciiEncode')) {
             $ascii .= "&#$ud;";
         }
         return $ascii;
+    }
+}
+
+/**
+ * Get the boolean value of a variable
+ */
+if (!function_exists('b')) {
+    function b($val): bool
+    {
+        return $val instanceof \Modules\Core\Contracts\Support\Boolable ? $val->toBool() : boolval($val);
     }
 }
