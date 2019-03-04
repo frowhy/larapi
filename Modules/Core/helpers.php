@@ -24,7 +24,7 @@ if (!function_exists('verification_code')) {
 /**
  * 相对 URL
  */
-if (!function_exists('secure')) {
+if (!function_exists('relative_url')) {
     function relative_url(?string $url = null): ?string
     {
         return $url === null
