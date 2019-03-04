@@ -563,3 +563,31 @@ if (!function_exists('is_true')) {
                 : boolval($val));
     }
 }
+
+if (!function_exists('get_routes')) {
+    function get_routes($module = null): \Illuminate\Support\Collection
+    {
+        $routes = collect(Route::getRoutes()->getRoutesByName())->groupBy(function ($item, $key) {
+            $keys = explode('.', $key);
+
+            return $keys[count($keys) - 2];
+        }, true)->map(function (\Illuminate\Support\Collection $item) {
+            return $item->mapWithKeys(function ($item, $key) {
+                $keys = explode('.', $key);
+                $route = collect($item->action)
+                    ->put('method', $item->methods[0])
+                    ->put('uri', $item->uri)
+                    ->forget('uses')
+                    ->sort();
+
+                return [array_last($keys) => $route];
+            });
+        });
+
+        if (null !== $module) {
+            return $routes->get($module);
+        }
+
+        return $routes;
+    }
+}
