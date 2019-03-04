@@ -8,6 +8,8 @@
 
 namespace Modules\Core\Traits;
 
+use ReflectionException;
+
 trait ServiceTrait
 {
     protected $service;
@@ -21,7 +23,7 @@ trait ServiceTrait
             $model = str_before($shortName, 'Controller');
             $prefix = str_before($calledClass, 'Http\\Controllers');
             $this->service = app("{$prefix}Services\\{$model}Service");
-        } catch (\ReflectionException $exception) {
+        } catch (ReflectionException $exception) {
             dd($exception);
         }
     }

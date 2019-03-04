@@ -77,6 +77,7 @@ trait EnumsTrait
             }
         }
 
+        /** @noinspection PhpUndefinedClassInspection */
         return parent::setAttribute($field, $value);
     }
 

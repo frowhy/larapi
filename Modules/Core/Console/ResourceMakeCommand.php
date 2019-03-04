@@ -22,12 +22,15 @@ class ResourceMakeCommand extends OriginResourceMakeCommand
 
     /**
      * @return mixed
+     * @throws \Nwidart\Modules\Exceptions\ModuleNotFoundException
      */
     protected function getTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        /** @var \Nwidart\Modules\Laravel\LaravelFileRepository $laravelFileRepository */
+        $laravelFileRepository = $this->laravel['modules'];
+        $module = $laravelFileRepository->findOrFail($this->getModuleName());
 
-        $root_namespace = $this->laravel['modules']->config('namespace');
+        $root_namespace = $laravelFileRepository->config('namespace');
         $root_namespace .= '\\'.$module->getStudlyName();
 
         return (new Stub('/resource.stub', [

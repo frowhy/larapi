@@ -41,7 +41,9 @@ class RepositoryMakeCommand extends GeneratorCommand
 
     public function getDefaultNamespace(): string
     {
-        return $this->laravel['modules']->config('paths.generator.repository.path', 'Repositories');
+        /** @var \Nwidart\Modules\Laravel\LaravelFileRepository $laravelFileRepository */
+        $laravelFileRepository = $this->laravel['modules'];
+        return $laravelFileRepository->config('paths.generator.repository.path', 'Repositories');
     }
 
     /**
@@ -73,10 +75,13 @@ class RepositoryMakeCommand extends GeneratorCommand
      * Get implementation template contents.
      *
      * @return string
+     * @throws \Nwidart\Modules\Exceptions\ModuleNotFoundException
      */
     protected function getImplementationTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        /** @var \Nwidart\Modules\Laravel\LaravelFileRepository $laravelFileRepository */
+        $laravelFileRepository = $this->laravel['modules'];
+        $module = $laravelFileRepository->findOrFail($this->getModuleName());
 
         return (new Stub('/repository-eloquent.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
@@ -88,10 +93,13 @@ class RepositoryMakeCommand extends GeneratorCommand
      * Get interface template contents.
      *
      * @return string
+     * @throws \Nwidart\Modules\Exceptions\ModuleNotFoundException
      */
     protected function getInterfaceTemplateContents()
     {
-        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+        /** @var \Nwidart\Modules\Laravel\LaravelFileRepository $laravelFileRepository */
+        $laravelFileRepository = $this->laravel['modules'];
+        $module = $laravelFileRepository->findOrFail($this->getModuleName());
 
         return (new Stub('/repository.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
@@ -104,7 +112,9 @@ class RepositoryMakeCommand extends GeneratorCommand
      */
     protected function getDestinationFilePath()
     {
-        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+        /** @var \Nwidart\Modules\Laravel\LaravelFileRepository $laravelFileRepository */
+        $laravelFileRepository = $this->laravel['modules'];
+        $path = $laravelFileRepository->getModulePath($this->getModuleName());
         $transformerPath = GenerateConfigReader::read('repository');
 
         return $path.$transformerPath->getPath().'/'.$this->getFileName().'.php';
@@ -120,6 +130,8 @@ class RepositoryMakeCommand extends GeneratorCommand
 
     /**
      * Execute the console command.
+     *
+     * @throws \Nwidart\Modules\Exceptions\ModuleNotFoundException
      */
     public function handle()
     {
@@ -134,11 +146,15 @@ class RepositoryMakeCommand extends GeneratorCommand
      * Execute the console interface command.
      *
      * @param $path
+     *
+     * @throws \Nwidart\Modules\Exceptions\ModuleNotFoundException
      */
     protected function interfaceHandle($path)
     {
-        if (!$this->laravel['files']->isDirectory($dir = dirname($path))) {
-            $this->laravel['files']->makeDirectory($dir, 0777, true);
+        /** @var \Illuminate\Filesystem\Filesystem $filesystem */
+        $filesystem = $this->laravel['files'];
+        if (!$filesystem->isDirectory($dir = dirname($path))) {
+            $filesystem->makeDirectory($dir, 0777, true);
         }
 
         $contents = $this->getInterfaceTemplateContents();
@@ -156,11 +172,15 @@ class RepositoryMakeCommand extends GeneratorCommand
      * Execute the console implementation command.
      *
      * @param $path
+     *
+     * @throws \Nwidart\Modules\Exceptions\ModuleNotFoundException
      */
     protected function implementationHandle($path)
     {
-        if (!$this->laravel['files']->isDirectory($dir = dirname($path))) {
-            $this->laravel['files']->makeDirectory($dir, 0777, true);
+        /** @var \Illuminate\Filesystem\Filesystem $filesystem */
+        $filesystem = $this->laravel['files'];
+        if (!$filesystem->isDirectory($dir = dirname($path))) {
+            $filesystem->makeDirectory($dir, 0777, true);
         }
 
         $contents = $this->getImplementationTemplateContents();

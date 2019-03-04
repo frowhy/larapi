@@ -4,7 +4,6 @@ namespace Modules\Core\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-use Module;
 
 class CoreServiceProvider extends ServiceProvider
 {

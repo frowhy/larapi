@@ -12,5 +12,5 @@ use Exception;
 
 class InvalidEnumException extends Exception
 {
-
+    //
 }

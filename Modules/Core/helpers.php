@@ -11,6 +11,12 @@
  * 验证码
  */
 if (!function_exists('verification_code')) {
+    /**
+     * @param int $length
+     * @param string $type
+     *
+     * @return string
+     */
     function verification_code(int $length = 4, string $type = 'int')
     {
         if ('int' === $type) {
@@ -27,6 +33,7 @@ if (!function_exists('verification_code')) {
 if (!function_exists('secure')) {
     /**
      * @param null|string $url
+     *
      * @return null|string
      */
     function relative_url(?string $url = null)
@@ -356,7 +363,7 @@ if (!function_exists('random')) {
     {
         if ('digital' === $type) {
             return randomDigital($length);
-        } else if ('alphabet' === $type) {
+        } elseif ('alphabet' === $type) {
             return randomAlphabet($length);
         } else {
             return str_random($length);
@@ -442,6 +449,7 @@ if (!function_exists('round_robin')) {
 
 /**
  * 13 位时间戳
+ *
  * @return float
  */
 if (!function_exists('getMillisecond')) {
@@ -464,21 +472,21 @@ if (!function_exists('asciiEncode')) {
             if (ord($string{$a}) >= 0 && ord($string{$a}) <= 127) {
                 $ud = ord($string{$a});
                 $a += 1;
-            } else if (ord($string{$a}) >= 192 && ord($string{$a}) <= 223) {
+            } elseif (ord($string{$a}) >= 192 && ord($string{$a}) <= 223) {
                 $ud = (ord($string{$a}) - 192) * 64 + (ord($string{$a + 1}) - 128);
                 $a += 2;
-            } else if (ord($string{$a}) >= 224 && ord($string{$a}) <= 239) {
+            } elseif (ord($string{$a}) >= 224 && ord($string{$a}) <= 239) {
                 $ud =
                     (ord($string{$a}) - 224) * 4096 + (ord($string{$a + 1}) - 128) * 64 + (ord($string{$a + 2}) - 128);
                 $a += 3;
-            } else if (ord($string{$a}) >= 240 && ord($string{$a}) <= 247) {
+            } elseif (ord($string{$a}) >= 240 && ord($string{$a}) <= 247) {
                 $ud =
                     (ord($string{$a}) - 240) * 262144 +
                     (ord($string{$a + 1}) - 128) * 4096 +
                     (ord($string{$a + 2}) - 128) * 64 +
                     (ord($string{$a + 3}) - 128);
                 $a += 4;
-            } else if (ord($string{$a}) >= 248 && ord($string{$a}) <= 251) {
+            } elseif (ord($string{$a}) >= 248 && ord($string{$a}) <= 251) {
                 $ud =
                     (ord($string{$a}) - 248) * 16777216 +
                     (ord($string{$a + 1}) - 128) * 262144 +
@@ -486,7 +494,7 @@ if (!function_exists('asciiEncode')) {
                     (ord($string{$a + 3}) - 128) * 64 +
                     (ord($string{$a + 4}) - 128);
                 $a += 5;
-            } else if (ord($string{$a}) >= 252 && ord($string{$a}) <= 253) {
+            } elseif (ord($string{$a}) >= 252 && ord($string{$a}) <= 253) {
                 $ud =
                     (ord($string{$a}) - 252) * 1073741824 +
                     (ord($string{$a + 1}) - 128) * 16777216 +
@@ -495,7 +503,7 @@ if (!function_exists('asciiEncode')) {
                     (ord($string{$a + 4}) - 128) * 64 +
                     (ord($string{$a + 5}) - 128);
                 $a += 6;
-            } else if (ord($string{$a}) >= 254 && ord($string{$a}) <= 255) {
+            } elseif (ord($string{$a}) >= 254 && ord($string{$a}) <= 255) {
                 $ud = false;
             }
             $ascii .= "&#$ud;";
