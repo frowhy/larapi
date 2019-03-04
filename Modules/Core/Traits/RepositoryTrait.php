@@ -8,7 +8,6 @@
 
 namespace Modules\Core\Traits;
 
-
 trait RepositoryTrait
 {
     /**

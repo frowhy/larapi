@@ -8,7 +8,6 @@
 
 namespace Modules\Core\Traits;
 
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Image;

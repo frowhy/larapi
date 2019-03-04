@@ -8,7 +8,6 @@
 
 namespace Modules\Core\Exceptions;
 
-
 use Exception;
 
 class InvalidEnumException extends Exception

@@ -10,7 +10,6 @@ namespace Modules\Core\Traits;
 
 use Session;
 
-
 /**
  * Trait RepositoryStructureTrait
  * @package Modules\Core\Traits

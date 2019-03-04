@@ -8,7 +8,6 @@
 
 namespace Modules\Core\Supports;
 
-
 use Carbon\Carbon;
 
 class IdentificationCard

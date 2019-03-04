@@ -6,8 +6,9 @@ use Modules\Core\Supports\Response;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\HttpKernel\Exception\{
+    HttpException, UnauthorizedHttpException
+};
 
 class Handler extends ExceptionHandler
 {
@@ -69,10 +70,10 @@ class Handler extends ExceptionHandler
                         preg_match("/Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\(.*?)HttpException/si", get_class($exception), $message);
                         $response['meta'][self::MESSAGE] = $message[1];
                     }
-                } else if ($exception instanceof ModelNotFoundException) {
+                } elseif ($exception instanceof ModelNotFoundException) {
                     $response['meta'][self::STATUS_CODE] = 404;
                     $response['meta'][self::MESSAGE] = $exception->getMessage();
-                } else if ($exception instanceof AuthenticationException) {
+                } elseif ($exception instanceof AuthenticationException) {
                     $response['meta'][self::STATUS_CODE] = 401;
                     $response['meta'][self::MESSAGE] = $exception->getMessage();
                 } else {

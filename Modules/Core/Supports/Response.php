@@ -9,9 +9,9 @@
 namespace Modules\Core\Supports;
 
 use Asm89\Stack\CorsService;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Contracts\Support\{
+    Arrayable, Renderable, Responsable
+};
 use Modules\Core\Contracts\Support\Boolable;
 use SoapBox\Formatter\Formatter;
 
@@ -44,11 +44,11 @@ class Response implements Responsable, Arrayable, Renderable, Boolable
         $status_code = (self::param('status_sync') ?? config('core.api.status_sync')) ? $status_code : 200;
         if (in_array($format, ['application/xml', 'xml'])) {
             $response = response($formatter->toXml(), $status_code, ['Content-Type' => 'application/xml']);
-        } else if (in_array($format, ['application/x-yaml', 'yaml'])) {
+        } elseif (in_array($format, ['application/x-yaml', 'yaml'])) {
             $response = response($formatter->toYaml(), $status_code, ['Content-Type' => 'application/x-yaml']);
-        } else if (in_array($format, ['text/csv', 'csv'])) {
+        } elseif (in_array($format, ['text/csv', 'csv'])) {
             $response = response($formatter->toCsv(), $status_code, ['Content-Type' => 'text/csv']);
-        } else if (in_array($format, ['application/json', 'json'])) {
+        } elseif (in_array($format, ['application/json', 'json'])) {
             $response = response($formatter->toJson(), $status_code, ['Content-Type' => 'application/json']);
         } else {
             $response = response($response, $status_code);
@@ -134,7 +134,7 @@ class Response implements Responsable, Arrayable, Renderable, Boolable
         }
         if (($force && is_array($data))) {
             $_data = $data;
-        } else if (is_array($data) && array_has($data, 'data')) {
+        } elseif (is_array($data) && array_has($data, 'data')) {
             $_data = array_get($data, 'data');
         } else {
             if (is_string($data) && json_decode($data)) {
@@ -236,6 +236,7 @@ class Response implements Responsable, Arrayable, Renderable, Boolable
      * Create an HTTP response that represents the object.
      *
      * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function toResponse($request)

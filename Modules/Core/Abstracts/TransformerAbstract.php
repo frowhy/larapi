@@ -8,7 +8,6 @@
 
 namespace Modules\Core\Abstracts;
 
-
 use Modules\Core\Traits\TransformerStructureTrait;
 use League\Fractal\TransformerAbstract as OriginTransformerAbstract;
 

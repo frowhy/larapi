@@ -10,7 +10,6 @@ namespace Modules\Core\Traits;
 
 use Modules\Core\Supports\Response;
 
-
 /**
  * Trait PresenterTrait
  *

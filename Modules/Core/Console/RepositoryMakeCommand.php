@@ -6,11 +6,13 @@ use Illuminate\Support\Str;
 use Nwidart\Modules\Commands\GeneratorCommand;
 use Nwidart\Modules\Exceptions\FileAlreadyExistException;
 use Nwidart\Modules\Generators\FileGenerator;
-use Nwidart\Modules\Support\Config\GenerateConfigReader;
-use Nwidart\Modules\Support\Stub;
+use Nwidart\Modules\Support\{
+    Config\GenerateConfigReader, Stub
+};
 use Nwidart\Modules\Traits\ModuleCommandTrait;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\{
+    InputArgument, InputOption
+};
 
 class RepositoryMakeCommand extends GeneratorCommand
 {

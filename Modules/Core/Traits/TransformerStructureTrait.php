@@ -8,7 +8,6 @@
 
 namespace Modules\Core\Traits;
 
-
 use Modules\Core\Supports\Response;
 use Session;
 

@@ -8,7 +8,6 @@
 
 namespace Modules\Core\Contracts\Support;
 
-
 interface Boolable
 {
     /**
