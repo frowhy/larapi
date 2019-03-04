@@ -585,7 +585,7 @@ if (!function_exists('get_routes')) {
         });
 
         if (null !== $module) {
-            return $routes->get($module);
+            return $routes->get($module) ?? collect();
         }
 
         return $routes;

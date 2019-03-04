@@ -20,7 +20,8 @@ class CoreController extends Controller
         $requirements = $requirements->map(function ($item) {
             return $item->name;
         });
+        $routes = get_routes('core');
 
-        return Response::success(compact('name', 'requirements'));
+        return Response::success(compact('name', 'requirements', 'routes'));
     }
 }
