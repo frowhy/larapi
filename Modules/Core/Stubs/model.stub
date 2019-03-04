@@ -3,8 +3,12 @@
 namespace $NAMESPACE$;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Core\Traits\TransformableTrait;
+use Prettus\Repository\Contracts\Transformable;
 
-class $CLASS$ extends Model
+class $CLASS$ extends Model implements Transformable
 {
+    use TransformableTrait;
+
     protected $fillable = $FILLABLE$;
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Core\Providers;
 
+use Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -36,6 +37,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+
+        $this->mapCommandRoutes();
     }
 
     /**
@@ -65,5 +68,18 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(__DIR__.'/../Routes/api.php');
+    }
+
+    /**
+     * Define the "console" routes for the application.
+     *
+     * These routes are console commands.
+     *
+     * @return void
+     */
+    protected function mapCommandRoutes()
+    {
+        $commands = require __DIR__.'/../Routes/console.php';
+        $this->commands($commands);
     }
 }

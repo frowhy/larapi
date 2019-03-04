@@ -2,18 +2,31 @@
 
 namespace $NAMESPACE$;
 
-use Illuminate\Http\Resources\Json\Resource;
+use Modules\Core\Abstracts\TransformerAbstract;
 
-class $CLASS$ extends Resource
+/**
+ * Class $CLASS$
+ *
+ * @package $NAMESPACE$
+ */
+class $CLASS$ extends TransformerAbstract
 {
     /**
-     * Transform the resource into an array.
+     * Transform the $MODEL$ entity.
      *
-     * @param  \Illuminate\Http\Request
+     * @param \$ROOT_NAMESPACE$\Entities\$MODEL$ $attribute
+     *
      * @return array
      */
-    public function toArray($request)
+    public function fields($attribute)
     {
-        return parent::toArray($request);
+        return [
+            'id' => (int) $attribute->id,
+
+            /* place your other model properties here */
+
+            'created_at' => $attribute->createdAt,
+            'updated_at' => $attribute->updatedAt
+        ];
     }
 }

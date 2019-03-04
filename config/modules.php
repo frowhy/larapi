@@ -28,6 +28,7 @@ return [
         'files' => [
             'routes/web' => 'Routes/web.php',
             'routes/api' => 'Routes/api.php',
+            'routes/console' => 'Routes/console.php',
             //            'views/index' => 'Resources/views/index.blade.php',
             //            'views/master' => 'Resources/views/layouts/master.blade.php',
             'scaffold/config' => 'Config/config.php',
