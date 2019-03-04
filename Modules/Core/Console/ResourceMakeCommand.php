@@ -30,7 +30,7 @@ class ResourceMakeCommand extends OriginResourceMakeCommand
         $root_namespace = $this->laravel['modules']->config('namespace');
         $root_namespace .= '\\'.$module->getStudlyName();
 
-        return (new Stub('/transformer.stub', [
+        return (new Stub('/resource.stub', [
             'MODEL' => $this->getModelName(),
             'NAMESPACE' => $this->getClassNamespace($module),
             'CLASS' => $this->getClass(),
