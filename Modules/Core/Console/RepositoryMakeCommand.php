@@ -68,7 +68,9 @@ class RepositoryMakeCommand extends GeneratorCommand
     }
 
     /**
-     * @return mixed
+     * Get implementation template contents.
+     *
+     * @return string
      */
     protected function getImplementationTemplateContents()
     {
@@ -81,7 +83,9 @@ class RepositoryMakeCommand extends GeneratorCommand
     }
 
     /**
-     * @return mixed
+     * Get interface template contents.
+     *
+     * @return string
      */
     protected function getInterfaceTemplateContents()
     {
@@ -124,6 +128,11 @@ class RepositoryMakeCommand extends GeneratorCommand
         $this->implementationHandle($path);
     }
 
+    /**
+     * Execute the console interface command.
+     *
+     * @param $path
+     */
     protected function interfaceHandle($path)
     {
         if (!$this->laravel['files']->isDirectory($dir = dirname($path))) {
@@ -141,6 +150,11 @@ class RepositoryMakeCommand extends GeneratorCommand
         }
     }
 
+    /**
+     * Execute the console implementation command.
+     *
+     * @param $path
+     */
     protected function implementationHandle($path)
     {
         if (!$this->laravel['files']->isDirectory($dir = dirname($path))) {
@@ -156,5 +170,15 @@ class RepositoryMakeCommand extends GeneratorCommand
         } catch (FileAlreadyExistException $e) {
             $this->error("File : {$path} already exists.");
         }
+    }
+
+    /**
+     * Get template contents.
+     *
+     * @return string
+     */
+    protected function getTemplateContents()
+    {
+        return '';
     }
 }
