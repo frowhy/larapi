@@ -8,6 +8,8 @@
 
 namespace Modules\Core\Traits;
 
+use Illuminate\Support\Str;
+
 trait TransformableTrait
 {
     /**
@@ -37,5 +39,11 @@ trait TransformableTrait
                 return [];
             }
         }
+    }
+
+    public function getAttribute($key)
+    {
+        $key = Str::snake($key);
+        return parent::getAttribute($key);
     }
 }

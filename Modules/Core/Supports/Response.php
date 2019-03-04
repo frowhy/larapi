@@ -271,6 +271,6 @@ class Response implements Responsable, Arrayable, Renderable, Boolable
      */
     public function isTrue()
     {
-        return $this->statusCode === 200;
+        return 200 === array_get($this->response, 'meta.status_code');
     }
 }
