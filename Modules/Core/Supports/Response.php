@@ -269,7 +269,7 @@ class Response implements Responsable, Arrayable, Renderable, Boolable
      *
      * @return bool
      */
-    public function isTrue()
+    public function toBool(): bool
     {
         return 200 === array_get($this->response, 'meta.status_code');
     }

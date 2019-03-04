@@ -15,5 +15,5 @@ interface Boolable
      *
      * @return bool
      */
-    public function isTrue();
+    public function toBool(): bool;
 }
