@@ -8,7 +8,7 @@
 
 namespace Modules\Core\Traits\Repository;
 
-use Modules\User\Entities\User;
+use App\User;
 
 /**
  * @property \Illuminate\Database\Eloquent\Model model
@@ -18,7 +18,7 @@ trait CheckPermissionTrait
     /**
      * 检查权限
      *
-     * @param \Modules\User\Entities\User $user
+     * @param \App\User $user
      * @param int $id
      *
      * @return bool

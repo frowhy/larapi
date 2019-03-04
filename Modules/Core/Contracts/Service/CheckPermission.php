@@ -9,14 +9,14 @@
 namespace Modules\Core\Contracts\Service;
 
 
-use Modules\User\Entities\User;
+use App\User;
 
 interface CheckPermission
 {
     /**
      * 检查权限
      *
-     * @param \Modules\User\Entities\User $user
+     * @param \App\User $user
      * @param int $id
      *
      * @return mixed

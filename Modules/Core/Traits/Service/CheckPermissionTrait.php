@@ -9,7 +9,7 @@
 namespace Modules\Core\Traits\Service;
 
 use Modules\Core\Supports\Response;
-use Modules\User\Entities\User;
+use App\User;
 
 /**
  * @property \Modules\Core\Contracts\Repository\CheckPermission repository
@@ -19,7 +19,7 @@ trait CheckPermissionTrait
     /**
      * 检查权限
      *
-     * @param \Modules\User\Entities\User $user
+     * @param \App\User $user
      * @param int $id
      *
      * @return \Modules\Core\Supports\Response
