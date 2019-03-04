@@ -570,7 +570,7 @@ if (!function_exists('get_routes')) {
         $routes = collect(Route::getRoutes()->getRoutesByName())->groupBy(function ($item, $key) {
             $keys = explode('.', $key);
 
-            return $keys[count($keys) - 2];
+            return $keys[0];
         }, true)->map(function (\Illuminate\Support\Collection $item) {
             return $item->mapWithKeys(function ($item, $key) {
                 $keys = explode('.', $key);
@@ -580,9 +580,9 @@ if (!function_exists('get_routes')) {
                     ->forget('uses')
                     ->sort();
 
-                return [array_last($keys) => $route];
-            });
-        });
+                return [implode('.', array_except($keys, 0)) => $route];
+            })->sortKeys();
+        })->sortKeys();
 
         if (null !== $module) {
             return $routes->get($module) ?? collect();
