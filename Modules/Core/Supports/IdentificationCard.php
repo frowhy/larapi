@@ -17,7 +17,7 @@ class IdentificationCard
     {
         if (18 === strlen($idCard)) {
             return self::check18IDCard($idCard);
-        } else if ((15 === strlen($idCard))) {
+        } elseif ((15 === strlen($idCard))) {
             $idCard = self::convertIDCard15to18($idCard);
 
             return self::check18IDCard($idCard);
