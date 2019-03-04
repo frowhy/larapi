@@ -3,6 +3,7 @@
 namespace Modules\Core\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Module;
 use Modules\Core\Supports\Response;
 
 class CoreController extends Controller
@@ -14,8 +15,11 @@ class CoreController extends Controller
      */
     public function index()
     {
-        $name = \Module::find('core')->name;
-        $requirements = \Module::findRequirements('core');
+        $name = Module::find('core')->name;
+        $requirements = collect(Module::findRequirements('core'));
+        $requirements = $requirements->map(function ($item) {
+            return $item->name;
+        });
 
         return Response::success(compact('name', 'requirements'));
     }

@@ -16,7 +16,10 @@ class $CLASS$ extends Controller
     public function index()
     {
         $name = Module::find('$LOWER_NAME$')->name;
-        $requirements = Module::findRequirements('$LOWER_NAME$');
+        $requirements = collect(Module::findRequirements('$LOWER_NAME$'));
+        $requirements = $requirements->map(function ($item) {
+            return $item->name;
+        });
 
         return Response::success(compact('name', 'requirements'));
     }
