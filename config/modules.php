@@ -127,7 +127,8 @@ return [
             'emails' => ['path' => 'Emails', 'generate' => false],
             'notifications' => ['path' => 'Notifications', 'generate' => false],
             'resource' => ['path' => 'Transformers', 'generate' => true],
-            'service' => ['path' => 'Services', 'generate' => true],
+            'services' => ['path' => 'Services', 'generate' => true],
+            'presenters' => ['path' => 'Presenters', 'generate' => true],
         ],
     ],
     /*
