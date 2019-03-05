@@ -9,6 +9,28 @@ use Symfony\Component\Console\Input\InputOption;
 class ResourceMakeCommand extends OriginResourceMakeCommand
 {
     /**
+     * Execute the console command.
+     *
+     */
+    public function handle()
+    {
+        parent::handle();
+
+        $this->handleOptionalPresenterOption();
+    }
+
+    private function handleOptionalPresenterOption()
+    {
+        if ($this->option('presenter') === true) {
+            $presenterName = $this->getModelName().'Presenter';
+
+            $this->call('module:make-presenter', [
+                'name' => $presenterName, 'module' => $this->argument('module'),
+            ]);
+        }
+    }
+
+    /**
      * Get the console command options.
      *
      * @return array
@@ -17,6 +39,7 @@ class ResourceMakeCommand extends OriginResourceMakeCommand
     {
         return [
             ['model', null, InputOption::VALUE_OPTIONAL, 'The model that should be assigned.', null],
+            ['presenter', 'p', InputOption::VALUE_NONE, 'Flag to create associated presenter', null],
         ];
     }
 
