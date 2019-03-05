@@ -4,12 +4,10 @@ namespace $NAMESPACE$;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Core\Traits\CamelMutatorTrait;
-use Modules\Core\Traits\TransformableTrait;
-use Prettus\Repository\Contracts\Transformable;
 
-class $CLASS$ extends Model implements Transformable
+class $CLASS$ extends Model
 {
-    use CamelMutatorTrait, TransformableTrait;
+    use CamelMutatorTrait;
 
     protected $fillable = $FILLABLE$;
 }
