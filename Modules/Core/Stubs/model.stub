@@ -3,12 +3,13 @@
 namespace $NAMESPACE$;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Core\Traits\CamelMutatorTrait;
 use Modules\Core\Traits\TransformableTrait;
 use Prettus\Repository\Contracts\Transformable;
 
 class $CLASS$ extends Model implements Transformable
 {
-    use TransformableTrait;
+    use CamelMutatorTrait, TransformableTrait;
 
     protected $fillable = $FILLABLE$;
 }
