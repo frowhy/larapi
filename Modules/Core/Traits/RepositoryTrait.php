@@ -22,4 +22,32 @@ trait RepositoryTrait
         $model = str_before(class_basename($calledClass), 'Service');
         $this->repository = app("{$prefix}Repositories\\{$model}RepositoryEloquent");
     }
+
+    /**
+     * Skip Presenter Wrapper
+     *
+     * @param bool $status
+     *
+     * @return $this
+     */
+    public function skipPresenter($status = true)
+    {
+        $this->repository = $this->repository->skipPresenter($status);
+
+        return $this;
+    }
+
+    /**
+     * Skip Criteria
+     *
+     * @param bool $status
+     *
+     * @return $this
+     */
+    public function skipCriteria($status = true)
+    {
+        $this->repository = $this->repository->skipCriteria($status);
+
+        return $this;
+    }
 }

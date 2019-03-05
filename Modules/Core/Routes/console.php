@@ -11,12 +11,10 @@
 |
 */
 
-use Modules\Core\Console\{
-    ResourceMakeCommand,
-    RepositoryMakeCommand
-};
+use Modules\Core\Console\{PresenterMakeCommand, ResourceMakeCommand, RepositoryMakeCommand};
 
 return [
     ResourceMakeCommand::class,
     RepositoryMakeCommand::class,
+    PresenterMakeCommand::class,
 ];

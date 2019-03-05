@@ -12,44 +12,12 @@ use Session;
 
 /**
  * Trait RepositoryStructureTrait
+ *
  * @package Modules\Core\Traits
  * @method \Prettus\Repository\Eloquent\BaseRepository pushCriteria($criteria)
  */
 trait RepositoryStructureTrait
 {
-    /**
-     * Specify Model
-     *
-     * @return string
-     */
-    public function model()
-    {
-        $calledClass = get_called_class();
-        $prefix = str_before($calledClass, 'Repositories');
-        $model = str_before(class_basename($calledClass), 'Repository');
-
-        return "{$prefix}Entities\\{$model}";
-    }
-
-    /**
-     * Specify Presenter
-     *
-     * @return mixed
-     */
-    public function presenter()
-    {
-        return "Prettus\\Repository\\Presenter\\ModelFractalPresenter";
-    }
-
-    /**
-     * Boot up the repository, pushing criteria
-     *
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app('Prettus\\Repository\\Criteria\\RequestCriteria'));
-    }
-
     public function only(array $attributes)
     {
         $model = str_before(class_basename(get_called_class()), 'Repository');

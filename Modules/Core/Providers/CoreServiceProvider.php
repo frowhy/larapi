@@ -2,8 +2,11 @@
 
 namespace Modules\Core\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Core\Supports\IdentificationCard;
+use Validator;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -21,10 +24,13 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->setLocale();
+        $this->setPrecision();
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
         $this->registerFactories();
+        $this->registerValidators();
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
     }
 
@@ -109,5 +115,22 @@ class CoreServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
+    }
+
+    public function setLocale()
+    {
+        Carbon::setLocale('zh');
+    }
+
+    public function setPrecision()
+    {
+        ini_set('precision', 17);
+    }
+
+    public function registerValidators()
+    {
+        Validator::extend('identification_card', function ($attribute, $value, $parameters, $validator) {
+            return IdentificationCard::validateIDCard($value);
+        });
     }
 }

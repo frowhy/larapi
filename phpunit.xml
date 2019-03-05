@@ -9,17 +9,24 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit</directory>
-        </testsuite>
-
         <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
+            <directory suffix="Test.php">./Modules/**/Tests/</directory>
+        </testsuite>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./Modules/**/Tests/</directory>
         </testsuite>
     </testsuites>
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+        <whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./Modules</directory>
+            <exclude>
+                <directory suffix="blade.php">./Modules</directory>
+                <directory suffix=".php">./Modules/**/Routes</directory>
+                <directory suffix=".php">./Modules/**/Resources</directory>
+                <directory suffix=".php">./Modules/**/Tests</directory>
+                <directory suffix=".php">./Modules/**/Config</directory>
+            </exclude>
         </whitelist>
     </filter>
     <php>
