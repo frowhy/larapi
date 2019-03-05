@@ -297,9 +297,10 @@ if (!function_exists('is_mini_program')) {
 if (!function_exists('get_data')) {
     function get_data($data, $index = null, $key = null)
     {
-        if ($data instanceof \Illuminate\Support\Collection) {
+        if ($data instanceof \Illuminate\Support\Collection || $data instanceof \Modules\Core\Supports\Response) {
             $data = $data->toArray();
         }
+
         if (array_has($data, 'data')) {
             $field = 'data.';
         } else {

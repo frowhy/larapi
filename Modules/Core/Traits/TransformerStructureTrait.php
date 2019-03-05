@@ -8,6 +8,7 @@
 
 namespace Modules\Core\Traits;
 
+use Modules\Core\Abstracts\TransformerAbstract;
 use Modules\Core\Supports\Response;
 use Session;
 
@@ -36,11 +37,28 @@ trait TransformerStructureTrait
             } else {
                 $requestedFields = explode(',', $param);
             }
+
             if ($requestedFields) {
+
                 $data = [];
-                foreach ($requestedFields as $requested_field) {
-                    if (array_has($this->field, $requested_field)) {
-                        array_set($data, $requested_field, array_get($this->field, $requested_field));
+                foreach ($requestedFields as $requestedField) {
+
+                    if ($this instanceof TransformerAbstract) {
+
+                        $scope = null;
+
+                        if (str_contains($requestedField, '.')) {
+                            $requestedFieldArray = explode('.', $requestedField);
+                            $scope = array_first($requestedFieldArray);
+                            $requestedField = array_last($requestedFieldArray);
+                        }
+
+                        if ($scope === $this->getCurrentScope()->getScopeIdentifier()) {
+                            if (array_has($this->field, $requestedField)) {
+                                array_set($data, $requestedField, array_get($this->field, $requestedField));
+                            }
+                        }
+
                     }
                 }
                 $this->field = $data;
@@ -59,8 +77,28 @@ trait TransformerStructureTrait
             } else {
                 $excludeFields = explode(',', $param);
             }
+
             if ($excludeFields) {
-                $this->field = array_except($this->field, $excludeFields);
+
+                foreach ($excludeFields as $excludeField) {
+
+                    if ($this instanceof TransformerAbstract) {
+
+                        $scope = null;
+
+                        if (str_contains($excludeField, '.')) {
+                            $excludeFieldArray = explode('.', $excludeField);
+                            $scope = array_first($excludeFieldArray);
+                            $excludeField = array_last($excludeFieldArray);
+                        }
+
+                        if ($scope === $this->getCurrentScope()->getScopeIdentifier()) {
+                            if (array_has($this->field, $excludeField)) {
+                                $this->field = array_except($this->field, $excludeField);
+                            }
+                        }
+                    }
+                }
             }
         }
     }
