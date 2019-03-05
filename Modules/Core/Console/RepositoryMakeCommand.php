@@ -68,7 +68,31 @@ class RepositoryMakeCommand extends GeneratorCommand
     {
         return [
             ['model', null, InputOption::VALUE_OPTIONAL, 'The model that should be assigned.', null],
+            ['resource', 'r', InputOption::VALUE_NONE, 'Flag to create associated resource', null],
+            ['presenter', 'p', InputOption::VALUE_NONE, 'Flag to create associated presenter', null],
         ];
+    }
+
+    private function handleOptionalResourceOption()
+    {
+        if ($this->option('resource') === true) {
+            $resourceName = $this->getModelName().'Transformer';
+
+            $this->call('module:make-resource', [
+                'name' => $resourceName, 'module' => $this->argument('module'),
+            ]);
+        }
+    }
+
+    private function handleOptionalPresenterOption()
+    {
+        if ($this->option('presenter') === true) {
+            $presenterName = $this->getModelName().'Presenter';
+
+            $this->call('module:make-presenter', [
+                'name' => $presenterName, 'module' => $this->argument('module'),
+            ]);
+        }
     }
 
     /**
@@ -83,9 +107,14 @@ class RepositoryMakeCommand extends GeneratorCommand
         $laravelFileRepository = $this->laravel['modules'];
         $module = $laravelFileRepository->findOrFail($this->getModuleName());
 
+        $root_namespace = $laravelFileRepository->config('namespace');
+        $root_namespace .= '\\'.$module->getStudlyName();
+
         return (new Stub('/repository-eloquent.stub', [
+            'MODEL' => $this->getModelName(),
             'NAMESPACE' => $this->getClassNamespace($module),
             'CLASS' => $this->getClass(),
+            'ROOT_NAMESPACE' => $root_namespace,
         ]))->render();
     }
 
@@ -105,6 +134,15 @@ class RepositoryMakeCommand extends GeneratorCommand
             'NAMESPACE' => $this->getClassNamespace($module),
             'CLASS' => $this->getClass(),
         ]))->render();
+    }
+
+    /**
+     * @return string
+     */
+    private function getModelName()
+    {
+        return $this->option('model')
+            ?: str_before(class_basename($this->argument($this->argumentName)), 'Repository');
     }
 
     /**
@@ -140,6 +178,9 @@ class RepositoryMakeCommand extends GeneratorCommand
 
         $path = str_before($path, '.php').'Eloquent.php';
         $this->implementationHandle($path);
+
+        $this->handleOptionalResourceOption();
+        $this->handleOptionalPresenterOption();
     }
 
     /**
