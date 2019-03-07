@@ -16,7 +16,7 @@ use Symfony\Component\Console\Input\{
     InputArgument, InputOption
 };
 
-class RepositoryMakeCommand extends GeneratorCommand
+class ApiMakeCommand extends GeneratorCommand
 {
     use ModuleCommandTrait;
 
@@ -32,20 +32,20 @@ class RepositoryMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'module:make-repository';
+    protected $name = 'module:make-api';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate new Repository for the specified module.';
+    protected $description = 'Generate new Api for the specified module.';
 
     public function getDefaultNamespace(): string
     {
         /** @var \Nwidart\Modules\Laravel\LaravelFileRepository $laravelFileRepository */
         $laravelFileRepository = $this->laravel['modules'];
-        return $laravelFileRepository->config('paths.generator.repository.path', 'Repositories');
+        return $laravelFileRepository->config('paths.generator.api.path', 'Http/Controllers/Api/V1');
     }
 
     /**
@@ -56,45 +56,9 @@ class RepositoryMakeCommand extends GeneratorCommand
     protected function getArguments()
     {
         return [
-            ['name', InputArgument::REQUIRED, 'The name of the repository.'],
+            ['name', InputArgument::REQUIRED, 'The name of the api.'],
             ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
         ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['model', null, InputOption::VALUE_OPTIONAL, 'The model that should be assigned.', null],
-            ['resource', 'r', InputOption::VALUE_NONE, 'Flag to create associated resource', null],
-            ['presenter', 'p', InputOption::VALUE_NONE, 'Flag to create associated presenter', null],
-        ];
-    }
-
-    private function handleOptionalResourceOption()
-    {
-        if ($this->option('resource') === true) {
-            $resourceName = $this->getModelName().'Transformer';
-
-            $this->call('module:make-resource', [
-                'name' => $resourceName, 'module' => $this->argument('module'),
-            ]);
-        }
-    }
-
-    private function handleOptionalPresenterOption()
-    {
-        if ($this->option('presenter') === true) {
-            $presenterName = $this->getModelName().'Presenter';
-
-            $this->call('module:make-presenter', [
-                'name' => $presenterName, 'module' => $this->argument('module'),
-            ]);
-        }
     }
 
     /**
@@ -130,7 +94,7 @@ class RepositoryMakeCommand extends GeneratorCommand
         return (new Stub('/bindings.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
             'INTERFACE_CLASS' => $this->getClass(),
-            'IMPLEMENT_CLASS' => $this->getClass().'Eloquent',
+            'IMPLEMENT_CLASS' => $this->getClass().'I',
             'PLACEHOLDER' => '//',
         ]))->render();
     }
@@ -147,14 +111,9 @@ class RepositoryMakeCommand extends GeneratorCommand
         $laravelFileRepository = $this->laravel['modules'];
         $module = $laravelFileRepository->findOrFail($this->getModuleName());
 
-        $root_namespace = $laravelFileRepository->config('namespace');
-        $root_namespace .= '\\'.$module->getStudlyName();
-
-        return (new Stub('/repository-eloquent.stub', [
-            'MODEL' => $this->getModelName(),
+        return (new Stub('/api/implement.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
             'CLASS' => $this->getClass(),
-            'ROOT_NAMESPACE' => $root_namespace,
         ]))->render();
     }
 
@@ -170,19 +129,10 @@ class RepositoryMakeCommand extends GeneratorCommand
         $laravelFileRepository = $this->laravel['modules'];
         $module = $laravelFileRepository->findOrFail($this->getModuleName());
 
-        return (new Stub('/repository.stub', [
+        return (new Stub('/api/interface.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
             'CLASS' => $this->getClass(),
         ]))->render();
-    }
-
-    /**
-     * @return string
-     */
-    private function getModelName()
-    {
-        return $this->option('model')
-            ?: str_before(class_basename($this->argument($this->argumentName)), 'Repository');
     }
 
     /**
@@ -193,9 +143,9 @@ class RepositoryMakeCommand extends GeneratorCommand
         /** @var \Nwidart\Modules\Laravel\LaravelFileRepository $laravelFileRepository */
         $laravelFileRepository = $this->laravel['modules'];
         $path = $laravelFileRepository->getModulePath($this->getModuleName());
-        $repositoryPath = GenerateConfigReader::read('repository');
+        $apiPath = GenerateConfigReader::read('api');
 
-        return $path.$repositoryPath->getPath().'/'.$this->getFileName().'.php';
+        return $path.$apiPath->getPath().'/'.$this->getFileName().'.php';
     }
 
     /**
@@ -216,14 +166,11 @@ class RepositoryMakeCommand extends GeneratorCommand
         $path = str_replace('\\', '/', $this->getDestinationFilePath());
         $this->interfaceHandle($path);
 
-        $path = str_before($path, '.php').'Eloquent.php';
+        $path = str_before($path, '.php').'I.php';
         $this->implementationHandle($path);
 
-        $path = module_path($this->getModuleName()).'/Providers/RepositoryServiceProvider.php';
+        $path = module_path($this->getModuleName()).'/Providers/ControllerServiceProvider.php';
         $this->bindingsHandle($path);
-
-        $this->handleOptionalResourceOption();
-        $this->handleOptionalPresenterOption();
     }
 
     /**

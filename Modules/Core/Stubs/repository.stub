@@ -2,7 +2,10 @@
 
 namespace $NAMESPACE$;
 
-interface $CLASS$
+use Prettus\Repository\Contracts\RepositoryCriteriaInterface;
+use Prettus\Repository\Contracts\RepositoryInterface;
+
+interface $CLASS$ extends RepositoryInterface, RepositoryCriteriaInterface
 {
     //
 }

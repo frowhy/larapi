@@ -3,12 +3,13 @@
 namespace Modules\Core\Providers;
 
 use Carbon\Carbon;
-use Illuminate\Support\ServiceProvider;
+use Config;
+use Illuminate\Support\ServiceProvider as ServiceProviderAlias;
 use Illuminate\Database\Eloquent\Factory;
 use Modules\Core\Supports\IdentificationCard;
 use Validator;
 
-class CoreServiceProvider extends ServiceProvider
+class CoreServiceProvider extends ServiceProviderAlias
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -42,6 +43,9 @@ class CoreServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(ControllerServiceProvider::class);
+        $this->app->register(ServiceProvider::class);
+        $this->app->register(RepositoryServiceProvider::class);
     }
 
     /**
@@ -76,7 +80,7 @@ class CoreServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(array_merge(array_map(function ($path) {
             return $path.'/modules/core';
-        }, \Config::get('view.paths')), [$sourcePath]), 'core');
+        }, Config::get('view.paths')), [$sourcePath]), 'core');
     }
 
     /**

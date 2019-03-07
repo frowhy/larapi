@@ -38,6 +38,9 @@ return [
             //            'webpack' => 'webpack.mix.js',
             //            'package' => 'package.json',
             '.gitignore' => '.gitignore',
+            'providers/controller' => 'Providers/ControllerServiceProvider.php',
+            'providers/service' => 'Providers/ServiceProvider.php',
+            'providers/repository' => 'Providers/RepositoryServiceProvider.php',
             'readme' => 'readme.md',
         ],
         'replacements' => [
@@ -129,6 +132,7 @@ return [
             'resource' => ['path' => 'Transformers', 'generate' => true],
             'services' => ['path' => 'Services', 'generate' => true],
             'presenters' => ['path' => 'Presenters', 'generate' => true],
+            'api' => ['path' => 'Http/Controllers/Api/V1', 'generate' => true],
         ],
     ],
     /*
