@@ -63,6 +63,18 @@ return [
                 'LOWER_NAME',
                 'STUDLY_NAME',
             ],
+            'providers/controller' => [
+                'MODULE_NAMESPACE',
+                'STUDLY_NAME',
+            ],
+            'providers/service' => [
+                'MODULE_NAMESPACE',
+                'STUDLY_NAME',
+            ],
+            'providers/repository' => [
+                'MODULE_NAMESPACE',
+                'STUDLY_NAME',
+            ],
         ],
         'gitkeep' => true,
     ],
@@ -116,7 +128,7 @@ return [
             'controller' => ['path' => 'Http/Controllers', 'generate' => true],
             'filter' => ['path' => 'Http/Middleware', 'generate' => true],
             'request' => ['path' => 'Http/Requests', 'generate' => true],
-            'provider' => ['path' => 'Providers', 'generate' => true],
+            'provider' => ['path' => 'Providers', 'generate' => false],
             'assets' => ['path' => 'Resources/assets', 'generate' => false],
             'lang' => ['path' => 'Resources/lang', 'generate' => true],
             'views' => ['path' => 'Resources/views', 'generate' => false],

@@ -36,6 +36,9 @@ class $CLASS$ extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(ControllerServiceProvider::class);
+        $this->app->register(ServiceProvider::class);
+        $this->app->register(RepositoryServiceProvider::class);
     }
 
     /**
