@@ -9,9 +9,9 @@
 namespace Modules\Core\Abstracts;
 
 use Modules\Core\Traits\TransformerStructureTrait;
-use League\Fractal\TransformerAbstract as OriginTransformerAbstract;
+use League\Fractal\TransformerAbstract as BaseTransformerAbstract;
 
-abstract class TransformerAbstract extends OriginTransformerAbstract
+abstract class TransformerAbstract extends BaseTransformerAbstract
 {
     use TransformerStructureTrait;
 

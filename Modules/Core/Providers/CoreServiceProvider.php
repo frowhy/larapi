@@ -4,12 +4,12 @@ namespace Modules\Core\Providers;
 
 use Carbon\Carbon;
 use Config;
-use Illuminate\Support\ServiceProvider as ServiceProviderAlias;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Modules\Core\Supports\IdentificationCard;
 use Validator;
 
-class CoreServiceProvider extends ServiceProviderAlias
+class CoreServiceProvider extends BaseServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.

@@ -2,11 +2,11 @@
 
 namespace Modules\Core\Console;
 
-use Nwidart\Modules\Commands\ResourceMakeCommand as ResourceMakeCommandAlias;
+use Nwidart\Modules\Commands\ResourceMakeCommand as BaseResourceMakeCommand;
 use Nwidart\Modules\Support\Stub;
 use Symfony\Component\Console\Input\InputOption;
 
-class ResourceMakeCommand extends ResourceMakeCommandAlias
+class ResourceMakeCommand extends BaseResourceMakeCommand
 {
     /**
      * Execute the console command.
