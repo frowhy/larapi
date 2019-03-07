@@ -16,6 +16,5 @@ class ServiceProvider extends ServiceProviderAlias
     {
         $this->app->bind(\Modules\Example\Services\ExampleService::class, \Modules\Example\Services\ExampleServiceI::class);
         //
-
     }
 }

@@ -16,6 +16,5 @@ class ControllerServiceProvider extends ServiceProvider
     {
         $this->app->bind(\Modules\Example\Http\Controllers\Api\V1\ExampleController::class, \Modules\Example\Http\Controllers\Api\V1\ExampleControllerI::class);
         //
-
     }
 }
