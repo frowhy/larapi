@@ -24,7 +24,7 @@ return [
 
     'stubs' => [
         'enabled' => true,
-        'path' => base_path().'/Modules/Core/Stubs',
+        'path' => base_path().'/modules/Core/Stubs',
         'files' => [
             'routes/web' => 'Routes/web.php',
             'routes/api' => 'Routes/api.php',
@@ -38,6 +38,9 @@ return [
             //            'webpack' => 'webpack.mix.js',
             //            'package' => 'package.json',
             '.gitignore' => '.gitignore',
+            'providers/controller' => 'Providers/ControllerServiceProvider.php',
+            'providers/service' => 'Providers/ServiceProvider.php',
+            'providers/repository' => 'Providers/RepositoryServiceProvider.php',
             'readme' => 'readme.md',
         ],
         'replacements' => [
@@ -58,6 +61,18 @@ return [
             ],
             'readme' => [
                 'LOWER_NAME',
+                'STUDLY_NAME',
+            ],
+            'providers/controller' => [
+                'MODULE_NAMESPACE',
+                'STUDLY_NAME',
+            ],
+            'providers/service' => [
+                'MODULE_NAMESPACE',
+                'STUDLY_NAME',
+            ],
+            'providers/repository' => [
+                'MODULE_NAMESPACE',
                 'STUDLY_NAME',
             ],
         ],
@@ -113,7 +128,7 @@ return [
             'controller' => ['path' => 'Http/Controllers', 'generate' => true],
             'filter' => ['path' => 'Http/Middleware', 'generate' => true],
             'request' => ['path' => 'Http/Requests', 'generate' => true],
-            'provider' => ['path' => 'Providers', 'generate' => true],
+            'provider' => ['path' => 'Providers', 'generate' => false],
             'assets' => ['path' => 'Resources/assets', 'generate' => false],
             'lang' => ['path' => 'Resources/lang', 'generate' => true],
             'views' => ['path' => 'Resources/views', 'generate' => false],
@@ -129,6 +144,7 @@ return [
             'resource' => ['path' => 'Transformers', 'generate' => true],
             'services' => ['path' => 'Services', 'generate' => true],
             'presenters' => ['path' => 'Presenters', 'generate' => true],
+            'api' => ['path' => 'Http/Controllers/Api/V1', 'generate' => true],
         ],
     ],
     /*
