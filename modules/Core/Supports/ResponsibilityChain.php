@@ -8,28 +8,25 @@
 
 namespace Modules\Core\Supports;
 
+use Closure;
+
 class ResponsibilityChain
 {
     private $isError = false;
     private $result = null;
     private $lastResult = null;
-    private $lastErrorResult = null;
 
-    public function append(Response $result, bool $isLastResult = false): ResponsibilityChain
+    public function append(Closure $result, bool $isLastResult = false, bool $isNext = false): ResponsibilityChain
     {
-        if (!$this->isError) {
-            $this->result = $result;
+        if (!$this->isError || $isNext) {
+            $this->result = $result(get_data($this->result), is_true($this->result));
 
-            if (!is_true($result)) {
-                $this->isError = true;
+            if (is_true($isLastResult)) {
+                $this->lastResult = $this->result;
             }
-        }
 
-        if (is_true($isLastResult)) {
-            if (!is_true($result)) {
-                $this->lastErrorResult = $result;
-            } else {
-                $this->lastResult = $result;
+            if (!is_true($this->result)) {
+                $this->isError = true;
             }
         }
 
@@ -38,12 +35,8 @@ class ResponsibilityChain
 
     public function handle(): Response
     {
-        if (!$this->isError && !is_null($this->lastResult)) {
+        if (!is_null($this->lastResult)) {
             return $this->lastResult;
-        }
-
-        if ($this->isError && !is_null($this->lastErrorResult)) {
-            return $this->lastErrorResult;
         }
 
         return $this->result;
