@@ -307,7 +307,7 @@ if (!function_exists('get_data')) {
             $field = '';
         }
 
-        if (array_has($data, "{$field}0")) {
+        if (array_has($data, "{$field}0") && !array_has($data, "{$field}1")) {
             if (!is_null($index) && is_int($index)) {
                 $key = "{$index}.{$key}";
             } else {
@@ -328,7 +328,13 @@ if (!function_exists('get_data')) {
             $key = '';
         }
 
-        return array_get($data, rtrim("{$field}{$key}", '.'));
+        $key = rtrim("{$field}{$key}", '.');
+
+        if ($key) {
+            return array_get($data, $key);
+        }
+
+        return $data;
     }
 }
 
