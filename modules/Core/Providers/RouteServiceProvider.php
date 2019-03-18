@@ -2,6 +2,7 @@
 
 namespace Modules\Core\Providers;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -38,6 +39,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
 
         $this->mapCommandRoutes();
+
+        $this->mapScheduleRoutes();
     }
 
     /**
@@ -80,5 +83,20 @@ class RouteServiceProvider extends ServiceProvider
     {
         $commands = require __DIR__.'/../Routes/console.php';
         $this->commands($commands);
+    }
+
+    /**
+     * Define the "schedule" routes for the application.
+     *
+     * These routes are schedules.
+     *
+     * @return void
+     */
+    protected function mapScheduleRoutes()
+    {
+        $schedule = $this->app->make(Schedule::class);
+        $closure = require __DIR__.'/../Routes/schedule.php';
+
+        $closure($schedule);
     }
 }
