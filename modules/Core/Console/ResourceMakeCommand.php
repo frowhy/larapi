@@ -2,6 +2,7 @@
 
 namespace Modules\Core\Console;
 
+use Illuminate\Support\Str;
 use Nwidart\Modules\Commands\ResourceMakeCommand as BaseResourceMakeCommand;
 use Nwidart\Modules\Support\Stub;
 use Symfony\Component\Console\Input\InputOption;
@@ -70,6 +71,6 @@ class ResourceMakeCommand extends BaseResourceMakeCommand
     private function getModelName()
     {
         return $this->option('model')
-            ?: str_before(class_basename($this->argument($this->argumentName)), 'Transformer');
+            ?: Str::before(class_basename($this->argument($this->argumentName)), 'Transformer');
     }
 }

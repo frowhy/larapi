@@ -7,6 +7,7 @@ use Config;
 use Event;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Str;
 use Modules\Core\Supports\IdentificationCard;
 use Prettus\Repository\Events\RepositoryEventBase;
 use Validator;
@@ -35,6 +36,7 @@ class CoreServiceProvider extends BaseServiceProvider
         $this->registerFactories();
         $this->registerValidators();
         $this->registerObservers();
+        $this->registerTelescope();
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
     }
 
@@ -147,7 +149,7 @@ class CoreServiceProvider extends BaseServiceProvider
             $model = $repositoryEntityCreated->getModel();
             $method = $repositoryEntityCreated->getAction();
             $class = get_class($model);
-            $namespace = str_before($class, 'Entities');
+            $namespace = Str::before($class, 'Entities');
             $basename = class_basename($model);
             $observerClass = "{$namespace}Observers\\{$basename}Observer";
             if (class_exists($observerClass)) {
@@ -155,5 +157,12 @@ class CoreServiceProvider extends BaseServiceProvider
                 $observer->$method($model);
             }
         });
+    }
+
+    public function registerTelescope()
+    {
+        if ($this->app->isLocal()) {
+            $this->app->register(TelescopeServiceProvider::class);
+        }
     }
 }

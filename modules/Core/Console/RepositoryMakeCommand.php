@@ -182,7 +182,7 @@ class RepositoryMakeCommand extends GeneratorCommand
     private function getModelName()
     {
         return $this->option('model')
-            ?: str_before(class_basename($this->argument($this->argumentName)), 'Repository');
+            ?: Str::before(class_basename($this->argument($this->argumentName)), 'Repository');
     }
 
     /**
@@ -216,7 +216,7 @@ class RepositoryMakeCommand extends GeneratorCommand
         $path = str_replace('\\', '/', $this->getDestinationFilePath());
         $this->interfaceHandle($path);
 
-        $path = str_before($path, '.php').'Eloquent.php';
+        $path = Str::before($path, '.php').'Eloquent.php';
         $this->implementationHandle($path);
 
         $path = module_path($this->getModuleName()).'/Providers/RepositoryServiceProvider.php';

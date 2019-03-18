@@ -94,7 +94,7 @@ class PresenterMakeCommand extends GeneratorCommand
     private function getResourceName()
     {
         return $this->option('resource')
-            ?: str_before(class_basename($this->argument($this->argumentName)), 'Presenter').'Transformer';
+            ?: Str::before(class_basename($this->argument($this->argumentName)), 'Presenter').'Transformer';
     }
 
     /**
