@@ -8,6 +8,7 @@
 
 namespace Modules\Core\Traits;
 
+use Illuminate\Support\Str;
 use Session;
 
 /**
@@ -20,7 +21,7 @@ trait RepositoryStructureTrait
 {
     public function only(array $attributes)
     {
-        $model = str_before(class_basename(get_called_class()), 'Repository');
+        $model = Str::before(class_basename(get_called_class()), 'Repository');
         Session::flash("{$model}.requested_fields", $attributes);
 
         return $this;
@@ -28,7 +29,7 @@ trait RepositoryStructureTrait
 
     public function except(array $attributes)
     {
-        $model = str_before(class_basename(get_called_class()), 'Repository');
+        $model = Str::before(class_basename(get_called_class()), 'Repository');
         Session::flash("{$model}.exclude_fields", $attributes);
 
         return $this;

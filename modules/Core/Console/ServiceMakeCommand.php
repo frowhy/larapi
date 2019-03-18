@@ -166,7 +166,7 @@ class ServiceMakeCommand extends GeneratorCommand
         $path = str_replace('\\', '/', $this->getDestinationFilePath());
         $this->interfaceHandle($path);
 
-        $path = str_before($path, '.php').'I.php';
+        $path = Str::before($path, '.php').'I.php';
         $this->implementationHandle($path);
 
         $path = module_path($this->getModuleName()).'/Providers/ServiceProvider.php';
