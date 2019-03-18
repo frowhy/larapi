@@ -39,6 +39,7 @@
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.5",
         "deployer/deployer": "^6.4",
-        "doctrine/dbal": "^2.9"
+        "doctrine/dbal": "^2.9",
+        "laravel/telescope": "^2.0"
     }
 }

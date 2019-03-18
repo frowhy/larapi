@@ -36,6 +36,7 @@ class CoreServiceProvider extends BaseServiceProvider
         $this->registerFactories();
         $this->registerValidators();
         $this->registerObservers();
+        $this->registerTelescope();
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
     }
 
@@ -156,5 +157,12 @@ class CoreServiceProvider extends BaseServiceProvider
                 $observer->$method($model);
             }
         });
+    }
+
+    public function registerTelescope()
+    {
+        if ($this->app->isLocal()) {
+            $this->app->register(TelescopeServiceProvider::class);
+        }
     }
 }
