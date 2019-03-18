@@ -8,6 +8,8 @@
 
 namespace Modules\Core\Traits;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Modules\Core\Abstracts\TransformerAbstract;
 use Modules\Core\Supports\Response;
 use Session;
@@ -47,15 +49,15 @@ trait TransformerStructureTrait
 
                         $scope = null;
 
-                        if (str_contains($requestedField, '.')) {
+                        if (Str::contains($requestedField, '.')) {
                             $requestedFieldArray = explode('.', $requestedField);
-                            $scope = array_first($requestedFieldArray);
-                            $requestedField = array_last($requestedFieldArray);
+                            $scope = Arr::first($requestedFieldArray);
+                            $requestedField = Arr::last($requestedFieldArray);
                         }
 
                         if ($scope === $this->getCurrentScope()->getScopeIdentifier()) {
-                            if (array_has($this->field, $requestedField)) {
-                                array_set($data, $requestedField, array_get($this->field, $requestedField));
+                            if (Arr::has($this->field, $requestedField)) {
+                                Arr::set($data, $requestedField, Arr::get($this->field, $requestedField));
                             }
                         }
 
@@ -86,15 +88,15 @@ trait TransformerStructureTrait
 
                         $scope = null;
 
-                        if (str_contains($excludeField, '.')) {
+                        if (Str::contains($excludeField, '.')) {
                             $excludeFieldArray = explode('.', $excludeField);
-                            $scope = array_first($excludeFieldArray);
-                            $excludeField = array_last($excludeFieldArray);
+                            $scope = Arr::first($excludeFieldArray);
+                            $excludeField = Arr::last($excludeFieldArray);
                         }
 
                         if ($scope === $this->getCurrentScope()->getScopeIdentifier()) {
-                            if (array_has($this->field, $excludeField)) {
-                                $this->field = array_except($this->field, $excludeField);
+                            if (Arr::has($this->field, $excludeField)) {
+                                $this->field = Arr::except($this->field, $excludeField);
                             }
                         }
                     }

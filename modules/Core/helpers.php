@@ -6,6 +6,11 @@
  * Time: 下午2:45
  */
 
+use Carbon\Carbon;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Modules\Core\Supports\Response;
 
 /**
  * 生成验证码
@@ -16,7 +21,7 @@ if (!function_exists('verification_code')) {
         if ('int' === $type) {
             return sprintf("%0{$length}d", rand(0, pow(10, $length) - 1));
         } else {
-            return str_random($length);
+            return Str::random($length);
         }
     }
 }
@@ -29,8 +34,8 @@ if (!function_exists('relative_url')) {
     {
         return $url === null
             ? $url
-            : (false === str_start($url, 'http://') ? (false === str_start($url, 'https://')
-                ? $url : str_replace_first('https://', '//', $url)) : str_replace_first('http://', '//', $url));
+            : (false === Str::start($url, 'http://') ? (false === Str::start($url, 'https://')
+                ? $url : Str::replaceFirst('https://', '//', $url)) : Str::replaceFirst('http://', '//', $url));
     }
 }
 
@@ -40,7 +45,7 @@ if (!function_exists('relative_url')) {
 if (!function_exists('storage_url')) {
     function storage_url(?string $url = null): ?string
     {
-        return $url === null ? $url : (starts_with($url, 'http') ? $url : \Storage::url($url));
+        return $url === null ? $url : (starts_with($url, 'http') ? $url : Storage::url($url));
     }
 }
 
@@ -99,7 +104,7 @@ if (!function_exists('gray_level')) {
 if (!function_exists('last_year')) {
     function last_year(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->today()->subYear()->startOfYear();
         $end_at = $carbon->today()->subYear()->endOfYear();
 
@@ -113,7 +118,7 @@ if (!function_exists('last_year')) {
 if (!function_exists('this_year')) {
     function this_year(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->today()->startOfYear();
         $end_at = $carbon->today()->endOfYear();
 
@@ -127,7 +132,7 @@ if (!function_exists('this_year')) {
 if (!function_exists('next_year')) {
     function next_year(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->today()->addYear()->startOfYear();
         $end_at = $carbon->today()->addYear()->endOfYear();
 
@@ -141,7 +146,7 @@ if (!function_exists('next_year')) {
 if (!function_exists('last_month')) {
     function last_month(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->today()->subMonth()->startOfMonth();
         $end_at = $carbon->today()->subMonth()->endOfMonth();
 
@@ -155,7 +160,7 @@ if (!function_exists('last_month')) {
 if (!function_exists('this_month')) {
     function this_month(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->today()->startOfMonth();
         $end_at = $carbon->today()->endOfMonth();
 
@@ -169,7 +174,7 @@ if (!function_exists('this_month')) {
 if (!function_exists('next_month')) {
     function next_month(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->today()->addMonth()->startOfMonth();
         $end_at = $carbon->today()->addMonth()->endOfMonth();
 
@@ -183,7 +188,7 @@ if (!function_exists('next_month')) {
 if (!function_exists('last_week')) {
     function last_week(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->today()->subWeek()->startOfWeek();
         $end_at = $carbon->today()->subWeek()->endOfWeek();
 
@@ -197,7 +202,7 @@ if (!function_exists('last_week')) {
 if (!function_exists('this_week')) {
     function this_week(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->today()->startOfWeek();
         $end_at = $carbon->today()->endOfWeek();
 
@@ -211,7 +216,7 @@ if (!function_exists('this_week')) {
 if (!function_exists('next_week')) {
     function next_week(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->today()->addWeek()->startOfWeek();
         $end_at = $carbon->today()->addWeek()->endOfWeek();
 
@@ -225,7 +230,7 @@ if (!function_exists('next_week')) {
 if (!function_exists('yesterday')) {
     function yesterday(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->yesterday()->startOfDay();
         $end_at = $carbon->yesterday()->startOfDay();
 
@@ -239,7 +244,7 @@ if (!function_exists('yesterday')) {
 if (!function_exists('today')) {
     function today(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->today()->startOfDay();
         $end_at = $carbon->today()->startOfDay();
 
@@ -253,7 +258,7 @@ if (!function_exists('today')) {
 if (!function_exists('tomorrow')) {
     function tomorrow(): array
     {
-        $carbon = new Illuminate\Support\Carbon();
+        $carbon = new Carbon();
         $start_at = $carbon->tomorrow()->startOfDay();
         $end_at = $carbon->tomorrow()->startOfDay();
 
@@ -267,7 +272,7 @@ if (!function_exists('tomorrow')) {
 if (!function_exists('in_wechat')) {
     function in_wechat(): bool
     {
-        return str_contains(request(), 'MicroMessenger');
+        return Str::contains(request(), 'MicroMessenger');
     }
 }
 
@@ -297,17 +302,17 @@ if (!function_exists('is_mini_program')) {
 if (!function_exists('get_data')) {
     function get_data($data, $index = null, $key = null)
     {
-        if ($data instanceof \Illuminate\Support\Collection || $data instanceof \Modules\Core\Supports\Response) {
+        if ($data instanceof Collection || $data instanceof Response) {
             $data = $data->toArray();
         }
 
-        if (array_has($data, 'data')) {
+        if (Arr::has($data, 'data')) {
             $field = 'data.';
         } else {
             $field = '';
         }
 
-        if (array_has($data, "{$field}0") && !array_has($data, "{$field}1")) {
+        if (Arr::has($data, "{$field}0") && !Arr::has($data, "{$field}1")) {
             if (!is_null($index) && is_int($index)) {
                 $key = "{$index}.{$key}";
             } else {
@@ -331,7 +336,7 @@ if (!function_exists('get_data')) {
         $key = rtrim("{$field}{$key}", '.');
 
         if ($key) {
-            return array_get($data, $key);
+            return Arr::get($data, $key);
         }
 
         return $data;
@@ -350,7 +355,7 @@ if (!function_exists('clear_cache')) {
                 $opcache::clear();
             }
         }
-        \Cache::tags('website')->flush();
+        Cache::tags('website')->flush();
     }
 }
 
@@ -360,7 +365,7 @@ if (!function_exists('clear_cache')) {
 if (!function_exists('has_cache')) {
     function has_cache(string $uri): bool
     {
-        return \Cache::tags('website')->has($uri);
+        return Cache::tags('website')->has($uri);
     }
 }
 
@@ -370,7 +375,7 @@ if (!function_exists('has_cache')) {
 if (!function_exists('get_cache')) {
     function get_cache(string $uri)
     {
-        return \Cache::tags('website')->get($uri);
+        return Cache::tags('website')->get($uri);
     }
 }
 
@@ -380,7 +385,7 @@ if (!function_exists('get_cache')) {
 if (!function_exists('set_cache')) {
     function set_cache(string $uri, string $response): void
     {
-        \Cache::tags('website')->put($uri, $response, config('cache.timeout'));
+        Cache::tags('website')->put($uri, $response, config('cache.timeout'));
     }
 }
 
@@ -391,11 +396,11 @@ if (!function_exists('random')) {
     function random(int $length = 4, string $type = 'digital'): string
     {
         if ('digital' === $type) {
-            return randomDigital($length);
+            return random_digital($length);
         } elseif ('alphabet' === $type) {
-            return randomAlphabet($length);
+            return random_alphabet($length);
         } else {
-            return str_random($length);
+            return Str::random($length);
         }
     }
 }
@@ -403,8 +408,8 @@ if (!function_exists('random')) {
 /**
  * 随机数字
  */
-if (!function_exists('randomDigital')) {
-    function randomDigital(int $length = 4): string
+if (!function_exists('random_digital')) {
+    function random_digital(int $length = 4): string
     {
         return sprintf("%0{$length}d", rand(0, pow(10, $length) - 1));
     }
@@ -413,8 +418,8 @@ if (!function_exists('randomDigital')) {
 /**
  * 随机字母
  */
-if (!function_exists('randomAlphabet')) {
-    function randomAlphabet(int $length = 4): string
+if (!function_exists('random_alphabet')) {
+    function random_alphabet(int $length = 4): string
     {
         $str = '';
         $map = [
@@ -422,7 +427,7 @@ if (!function_exists('randomAlphabet')) {
             ['97', '122'],
         ];
         for ($i = 0; $i < $length; $i++) {
-            $param = array_random($map);
+            $param = Arr::random($map);
             $str .= chr(call_user_func_array('rand', $param));
         }
         return $str;
@@ -432,28 +437,28 @@ if (!function_exists('randomAlphabet')) {
 /**
  * 随机大写字母
  */
-if (!function_exists('randomAlphabetUpper')) {
-    function randomAlphabetUpper(int $length = 4): string
+if (!function_exists('random_alphabet_upper')) {
+    function random_alphabet_upper(int $length = 4): string
     {
-        return strtoupper(randomAlphabet($length));
+        return strtoupper(random_alphabet($length));
     }
 }
 
 /**
  * 随机小写字母
  */
-if (!function_exists('randomAlphabetLower')) {
-    function randomAlphabetLower(int $length = 4): string
+if (!function_exists('random_alphabet_lower')) {
+    function random_alphabet_lower(int $length = 4): string
     {
-        return strtolower(randomAlphabet($length));
+        return strtolower(random_alphabet($length));
     }
 }
 
 /**
  * 随机日期
  */
-if (!function_exists('randomDate')) {
-    function randomDate(): string
+if (!function_exists('random_date')) {
+    function random_date(): string
     {
         return mt_rand(2000, date('Y')).sprintf("%02d", mt_rand(1, 12)).sprintf("%02d", mt_rand(1, 28));
     }
@@ -493,8 +498,8 @@ if (!function_exists('round_robin')) {
  *
  * @return float
  */
-if (!function_exists('getMillisecond')) {
-    function getMillisecond(): float
+if (!function_exists('get_millisecond')) {
+    function get_millisecond(): float
     {
         list($t1, $t2) = explode(' ', microtime());
         return (float) sprintf('%.0f', (floatval($t1) + floatval($t2)) * 1000);
@@ -506,8 +511,8 @@ if (!function_exists('getMillisecond')) {
  *
  * @return float
  */
-if (!function_exists('asciiEncode')) {
-    function asciiEncode(string $string): ?string
+if (!function_exists('ascii_encode')) {
+    function ascii_encode(string $string): ?string
     {
         $length = strlen($string);
         $a = 0;
@@ -566,19 +571,19 @@ if (!function_exists('is_true')) {
         return $val instanceof \Modules\Core\Contracts\Support\Boolable
             ? $val->toBool()
             : (is_string($val)
-                ? filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)
-                : boolval($val));
+                ? filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) : boolval($val));
     }
 }
 
 if (!function_exists('get_routes')) {
-    function get_routes($module = null): \Illuminate\Support\Collection
+    function get_routes($module = null): Collection
     {
+        /** @var \Illuminate\Support\Collection $routes */
         $routes = collect(Route::getRoutes()->getRoutesByName())->groupBy(function ($item, $key) {
             $keys = explode('.', $key);
 
             return $keys[0];
-        }, true)->map(function (\Illuminate\Support\Collection $item) {
+        }, true)->map(function (Collection $item) {
             return $item->mapWithKeys(function ($item, $key) {
                 $keys = explode('.', $key);
                 $route = collect($item->action)
@@ -587,7 +592,7 @@ if (!function_exists('get_routes')) {
                     ->forget('uses')
                     ->sort();
 
-                return [implode('.', array_except($keys, 0)) => $route];
+                return [implode('.', Arr::except($keys, 0)) => $route];
             })->sortKeys();
         })->sortKeys();
 
