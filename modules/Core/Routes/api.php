@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/core', 'Api\V1\CoreControllerI@index');
+Route::get('/core', 'CoreController@index');
